@@ -91,6 +91,11 @@ model.quantize(examples=examples)
 model.save_quantized("./Llama-3-8B-FP8-Local")
 ```
 
+### 캘리브레이션 데이터 ###
+* 일반적인 대화: HuggingFace의 databricks/databricks-dolly-15k 같은 데이터셋 활용.
+* 특정 도메인(금융, 의료): 실제 업무에서 사용되는 문서 샘플 200개 정도 추출.
+* 데이터가 너무 적으면 특정 단어에만 최적화(Overfitting)되어 모델이 바보가 될 수 있다.
+
 
 
 ## 참고자료 ##
