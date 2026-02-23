@@ -1,3 +1,22 @@
+# Quantization
+
+* https://developer.nvidia.com/blog/optimizing-llms-for-performance-and-accuracy-with-post-training-quantization/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # triton-on-eks
 
 ### TensorRT-LLM ###
