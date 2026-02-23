@@ -1,4 +1,4 @@
-# infer-on-eks
+# triton-on-eks
 
 ### TensorRT-LLM ###
 * 주피터 노트북 설치하기..
