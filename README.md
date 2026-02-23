@@ -1,4 +1,4 @@
-# inference-on-eks
+# infer-on-eks
 
 
 
