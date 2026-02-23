@@ -1,6 +1,5 @@
-# Quantization
+* [Quantization](https://github.com/gnosia93/post-training/blob/main/lesson/2-quantization.md)
 
-* https://developer.nvidia.com/blog/optimizing-llms-for-performance-and-accuracy-with-post-training-quantization/
 
 
 
