@@ -6,7 +6,12 @@
 * fastapi 붙여서 웹서버 구현하기 
 
 
-### Tenriton 서버 ###
+### Tenriton 인퍼런스 서버 ###
+
+* https://github.com/triton-inference-server/server
+
+
+### eks 인테그레이션 ###
 
 ---
 
