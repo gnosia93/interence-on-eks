@@ -1,7 +1,5 @@
 
 * [Dynamo 설치하기](https://github.com/gnosia93/post-training/blob/main/lesson/3-install-dynamo-eks.md)
-
-
 * [Quantization](https://github.com/gnosia93/post-training/blob/main/lesson/2-quantization.md)
 * [Nvidia Dynamo](https://github.com/gnosia93/post-training/blob/main/lesson/4-dynamo.md)
 
