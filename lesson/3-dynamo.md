@@ -31,6 +31,73 @@ NVIDIA Dynamo는 Triton Inference Server의 후속 기술로 대규모 데이터
 * 지능적 배치: 라우터는 그저 "누가 어떤 캐시를 들고 있는가"만 보고 요청을 분산.
 
 
+### FrontEnd 비동기 처리 예제 ###
+```
+import express, { Request, Response } from 'express';
+import { connect, NatsConnection, JSONCodec, createInbox } from 'nats';
+import { v4 as uuidv4 } from 'uuid';
+
+const app = express();
+const jc = JSONCodec(); // 메시지 직렬화/역직렬화 도구
+let natsConn: NatsConnection;
+
+// 1. NATS 연결 초기화
+async function initNats() {
+    natsConn = await connect({ servers: "nats://localhost:4222" });
+    console.log("NATS 연결 성공");
+}
+
+app.post('/v1/chat', async (req: Request, res: Response) => {
+    // 2. SSE(Server-Sent Events) 설정을 통해 HTTP 연결 유지
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+
+    // 3. 이 요청만을 위한 고유한 응답 주소(Reply Subject) 생성
+    // 이 주소는 etcd에 등록된 서비스 정보를 바탕으로 생성됨
+    const replySubject = createInbox(); 
+
+    // 4. [핵심] 이벤트 기반 구독 시작
+    // 루프를 돌지 않고, 메시지가 도착할 때마다 이 비동기 이터레이터가 깨어남
+    const sub = natsConn.subscribe(replySubject);
+    
+    // 이 비동기 루프는 Node.js 이벤트 루프에 의해 관리되며, 
+    // 실제 데이터가 소켓에 도착했을 때만 리소스를 소모함
+    (async () => {
+        for await (const msg of sub) {
+            const data = jc.decode(msg.data) as any;
+
+            if (data.status === 'DONE') {
+                res.write(`data: [DONE]\n\n`);
+                res.end(); // HTTP 연결 종료
+                sub.unsubscribe(); // NATS 구독 해제
+                break;
+            }
+
+            // 백엔드에서 온 토큰을 클라이언트에게 즉시 스트리밍
+            res.write(`data: ${JSON.stringify(data.content)}\n\n`);
+        }
+    })().catch(err => {
+        console.error("스트리밍 에러:", err);
+        res.end();
+    });
+
+    // 5. 백엔드(vLLM)로 요청 발행 (답장 주소 포함)
+    // 여기서 'vllm.llama3'는 etcd의 라벨을 통해 결정된 대상 Subject
+    natsConn.publish("vllm.llama3", jc.encode({
+        prompt: req.body.prompt,
+        requestId: uuidv4()
+    }), { reply: replySubject });
+
+    // 함수는 여기서 즉시 종료되지만, 위에서 만든 비동기 익명 함수가 
+    // 클로저(Closure)를 통해 'res' 객체를 붙잡고 응답을 처리함
+});
+
+initNats().then(() => {
+    app.listen(3000, () => console.log("Frontend API 서버 실행 중: 3000"));
+});
+```
+
 
 ## 레퍼런스 ##
 
