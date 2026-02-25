@@ -1,5 +1,5 @@
-## NVIDIA Dyanmo ##
-NVIDIA Dynamo는 대규모 데이터 센터 환경에서 생성형 AI 모델의 추론 성능을 극대화하기 위해 설계된 오픈 소스 분산 추론 프레임워크로 Prefill(입력 처리)과 Decode(출력 생성) 단계를 서로 다른 GPU 노드로 분리하여 병렬로 처리하는 분리형 서빙(Disaggregated Serving) 아키텍처를 핵심으로 한다. 이 과정에서 NIXL을 활용해 노드 간 KV 캐시 데이터를 연산 중단 없이 초고속으로 전송함으로써 전반적인 추론 지연 시간을 획기적으로 단축시키고, 사용자의 요청이 들어올 때 기존 캐시 데이터가 위치한 최적의 노드를 실시간으로 찾아주는 지능형 라우팅 기능을 수행하며, CPU DRAM이나 SSD까지 활용하는 계층형 메모리 관리를 통해 대규모 동시 접속 상황에서도 안정적인 서비스 성능을 유지한다. TensorRT-LLM, vLLM, SGLang 기존 엔진들과 유연하게 결합하여 거대 언어 모델(LLM) 서빙 능력을 극대화하는 통합 프레임워크 이다.
+## NVIDIA Dyanmo (차세대 분산 추론 프레임워크) ##
+NVIDIA Dynamo는 Triton Inference Server의 후속 기술로 대규모 데이터 센터 환경에서 생성형 AI 모델의 추론 성능을 극대화하기 위해 설계된 오픈 소스 분산 추론 프레임워크로 Prefill(입력 처리)과 Decode(출력 생성) 단계를 서로 다른 GPU 노드로 분리하여 병렬로 처리하는 분리형 서빙(Disaggregated Serving) 아키텍처를 핵심으로 한다. 이 과정에서 NIXL을 활용해 노드 간 KV 캐시 데이터를 연산 중단 없이 초고속으로 전송함으로써 전반적인 추론 지연 시간을 획기적으로 단축시키고, 사용자의 요청이 들어올 때 기존 캐시 데이터가 위치한 최적의 노드를 실시간으로 찾아주는 지능형 라우팅 기능을 수행하며, CPU DRAM이나 SSD까지 활용하는 계층형 메모리 관리를 통해 대규모 동시 접속 상황에서도 안정적인 서비스 성능을 유지한다. TensorRT-LLM, vLLM, SGLang 기존 엔진들과 유연하게 결합하여 거대 언어 모델(LLM) 서빙 능력을 극대화하는 통합 프레임워크 이다.
 ![](https://github.com/gnosia93/interence-on-eks/blob/main/lesson/images/nvidia-dynamo-1.png)
 
 
