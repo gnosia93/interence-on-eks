@@ -19,21 +19,40 @@ git clone https://github.com/coder/code-server
 cd code-server
 
 # GPU 리소스 요청
+# code-server Helm Chart - GPU + LoadBalancer + 비밀번호 설정
+# 사용법: helm upgrade --install vscode-gpu ci/helm-chart -f vscode-gpu-simple.yaml --namespace vscode --create-namespace
+
+service:
+  type: LoadBalancer
+  port: 8080
+extraArgs:
+  - --auth
+  - password
+extraEnvVars:
+  - name: PASSWORD
+    value: "yourpassword"
+
 resources:
   requests:
-    nvidia.com/gpu: 1
+    memory: "8Gi"
+    cpu: "4"
+    nvidia.com/gpu: 1  # GPU 1개 요청
   limits:
+    memory: "16Gi"
+    cpu: "8"
     nvidia.com/gpu: 1
 
-# GPU 노드 선택
 nodeSelector:
   nvidia.com/gpu: "true"
 
-# Taint 처리 (필요시)
 tolerations:
   - key: nvidia.com/gpu
     operator: Exists
     effect: NoSchedule
+
+persistence:
+  enabled: true
+  size: 50Gi
 
 
 # 2. LoadBalancer + 비밀번호 설정
