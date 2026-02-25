@@ -21,6 +21,7 @@ Step 3: Karpenter를 이용한 GPU 노드 오토스케일링 → "Keda or Planne
 ```
 
 
+
 ```
 # 1. 저장소 클론
 git clone https://github.com/coder/code-server
