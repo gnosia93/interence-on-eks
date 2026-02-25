@@ -17,14 +17,6 @@ Triton Inference Server의 후속 기술로, 대규모 분산 환경에서 생�
   * TensorRT-LLM: LLM에 특화된 TensorRT 버전으로, In-flight batching 등 최적화 기술 제공.
   * 사용 목적: 단일 또는 다중 GPU 환경에서 개별 모델의 지연 시간(Latency) 최소화 및 처리량 극대화. 
 
-### 주요 차이점 요약 ###
-|구분| 	NVIDIA Dynamo|	TensorRT / TRT-LLM|
-|---|---|---|
-|주 역할|	분산 추론 서버/오케스트레이터|	모델 최적화 런타임 엔진|
-|작동 레이어|	하이레벨 (Infrastructure, Serving)|	저레벨 (Graph, Kernels, Hardware)|
-|주요 대상|	대규모 클러스터 (Multi-node/GPU)| 단일/멀티 GPU 인스턴스|
-|핵심 기술|	분산 스케줄링, Disaggregated Serving|	양자화(FP8/INT8), Layer Fusion|
-|관계|	요청 관리자 (Backend로 TRT 사용)|	실제 연산 최적화기|
 
 
 * LLM(추론)에서의 Prefill
