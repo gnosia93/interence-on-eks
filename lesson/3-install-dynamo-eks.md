@@ -11,6 +11,16 @@ NVIDIA Dynamo는 대규모 데이터 센터 환경에서 생성형 AI 모델의 
 * 추론 효율의 극대화: 결과적으로 데이터 전송 중에도 GPU가 연산에만 100% 집중할 수 있게 하여, 특히 LLM의 KV Cache 전송이나 분산 추론 시 기존 대비 약 30~50% 이상의 성능 향상.
 
 
+### NVIDIA Dynamo Vs TensorRT ###
+|구분| 	NVIDIA Dynamo|	TensorRT / TRT-LLM|
+|---|---|---|
+|주 역할|	분산 추론 서버/오케스트레이터|	모델 최적화 런타임 엔진|
+|작동 레이어|	하이레벨 (Infrastructure, Serving)|	저레벨 (Graph, Kernels, Hardware)|
+|주요 대상|	대규모 클러스터 (Multi-node/GPU)| 단일/멀티 GPU 인스턴스|
+|핵심 기술|	분산 스케줄링, Disaggregated Serving|	양자화(FP8/INT8), Layer Fusion|
+|관계|	요청 관리자 (Backend로 TRT 사용)|	실제 연산 최적화기|
+
+
 ### docker 로 실행하기 ###
 ```bash
 docker run --gpus all --network host --rm -it nvcr.io/nvidia/ai-dynamo/tensorrtllm-runtime:0.8.1
