@@ -16,8 +16,8 @@
 
 ```
 Step 1: 단일 컨테이너 방식 (Python FastAPI + Model) → "아, 트래픽 몰리니 GPU가 노네?"
-Step 2: NVIDIA Dynamo/Triton 그래프 방식 도입 → "와, 전처리랑 추론을 찢으니까 GPU 가동률이 100% 찍히네!"
-Step 3: Karpenter를 이용한 GPU 노드 오토스케일링 → "돈 아끼기 성공!"
+Step 2: NVIDIA Dynamo/Triton 그래프 방식 도입 → "전처리(CPU), 추론(GPU), 후처리(GPU) 로 분리하여 GPU 사용률을 최대화 한다."
+Step 3: Karpenter를 이용한 GPU 노드 오토스케일링 → "Keda or Planner 기반 비교"
 ```
 
 
