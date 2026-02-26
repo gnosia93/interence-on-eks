@@ -135,8 +135,6 @@ metadata:
   name: "${CLUSTER_NAME}"
   version: "${K8S_VERSION}"
   region: "${AWS_REGION}"
-  tags:
-    karpenter.sh/discovery: "${CLUSTER_NAME}"    # 이 태그가 있어야 Karpenter가 서브넷/보안그룹을 자동으로 찾습니다.
   
 vpc:
   id: "${VPC_ID}"                    
@@ -174,7 +172,6 @@ iam:
 
 karpenter:
   version: "${KARPENTER_VERSION}"
-  createServiceAccount: true 				 # IRSA를 자동으로 생성하여 Karpenter Pod에 할당
 EOF
 ```
 ```
